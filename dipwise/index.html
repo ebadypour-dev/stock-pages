@@ -27,8 +27,9 @@ h3{font-size:14px;margin:16px 0 6px}
 .soon{font-style:normal;font-size:11px;background:#FAEEDA;color:#633806;padding:1px 6px;border-radius:6px}
 .off.ok{background:#E1F5EE;color:#085041}.off.bad{background:#FCEBEB;color:#791F1F}
 #feed{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:6px 14px;max-height:340px;overflow:auto}
-.msg{padding:10px 0;border-bottom:1px solid var(--bd)}.msg:last-child{border:0}.msg .tm{color:var(--mu);font-size:12px}
-.msg b{display:block}.msg pre{white-space:pre-wrap;font:13px Consolas,monospace;margin:4px 0}.msg a{color:#1D9E75;font-weight:700}
+.msg{position:relative;padding:10px 40px 10px 0;border-bottom:1px solid var(--bd)}.msg:last-child{border:0}.msg .tm{color:var(--mu);font-size:12px}
+.msg .x{position:absolute;top:8px;right:0;width:28px;height:28px;border-radius:8px;border:0;background:#E24B4A;color:#fff;font:700 15px system-ui;cursor:pointer;line-height:28px;padding:0}
+.msg .x:hover{background:#A32D2D}.msg b{display:block}.msg pre{white-space:pre-wrap;font:13px Consolas,monospace;margin:4px 0}.msg a{color:#1D9E75;font-weight:700}
 .mu{color:var(--mu)}
 #bar{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:3px solid #1D9E75;padding:14px 24px;font-size:16px;min-height:70px}
 #bar b{font-size:17px}#bar .mu{color:var(--mu);font-size:14px}#bar.err{border-top-color:#E24B4A}
@@ -62,7 +63,7 @@ h3{font-size:14px;margin:16px 0 6px}
 <h2 style="margin:0 0 6px">DipWise is locked</h2><p class="sub">Type your password. This phone or PC remembers it after that.</p>
 <input id="pw" type="password" autocomplete="current-password" style="width:100%;font-size:17px;padding:10px;border-radius:8px;border:1px solid var(--bd);background:var(--bg);color:var(--tx)">
 <button class="send" style="width:100%;margin-top:10px">Open</button><p id="lerr" style="color:#E24B4A;margin:8px 0 0"></p></form></div><script>
-let TOPIC=null;const ENC={"s": "gNsIN+X/lbz7bhz9wD5BRw==", "i": "CSRFz+t1/xktaqvS", "c": "l0pbivMnZPKfjfLzpihngRklf1dwMi/lCq9NMwrW9RifPu09W3mACIHpsvc33lQ=", "n": 600000};
+let TOPIC=null;const ENC={"s": "mHeaV2S89BqC05D7yvCZ+A==", "i": "3zDjD0hxhV8DoY1M", "c": "ezDpvkkEHtEZwM7dHhYIKYCZO8vxFGo1cpzs4QUqBB6qcCvsar51Eo2WiDGfPe8=", "n": 600000};
 const bar=document.getElementById('bar'),feed=document.getElementById('feed'),live=document.getElementById('live');
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')}
 function say(word,err){
@@ -81,13 +82,23 @@ function go(word,cost){
  }).catch(e=>say('','Not sent: no internet or ntfy did not answer. Try again, or write "'+word+'" in Telegram.'));
 }
 const seen=new Set();
+// his order 2026-11-22: a red X on each answer, "Are you sure?" first; a deleted answer stays gone on this device
+let gone=[];try{gone=JSON.parse(localStorage.getItem('dw-gone')||'[]')}catch(x){}
+function del(id,d){
+ if(!confirm('Are you sure? Delete this answer from this page?\n(It stays on your phone and in Telegram.)'))return;
+ gone.push(id);gone=gone.slice(-300);try{localStorage.setItem('dw-gone',JSON.stringify(gone))}catch(x){}
+ d.remove();
+ if(!feed.querySelector('.msg'))feed.innerHTML='<p class="mu" id="empty">No answers yet. Press a button below.</p>';
+}
 function show(m){
- if(m.event!=='message'||seen.has(m.id))return;seen.add(m.id);
+ if(m.event!=='message'||seen.has(m.id)||gone.includes(m.id))return;seen.add(m.id);
  const e=document.getElementById('empty');if(e)e.remove();
  const d=document.createElement('div');d.className='msg';
+ const x=document.createElement('button');x.className='x';x.title='Delete this answer';x.textContent='✕';x.onclick=()=>del(m.id,d);
  d.innerHTML='<span class="tm">'+new Date(m.time*1000).toLocaleString()+'</span><b>'+esc(m.title||'')+'</b><pre>'+esc(m.message)+'</pre>'+
   (m.click?'<a href="'+esc(m.click)+'" target="_blank">Open the page</a>':'')+
   (m.attachment&&m.attachment.url?' <a href="'+esc(m.attachment.url)+'" target="_blank">Open '+esc(m.attachment.name||'file')+'</a>':'');
+ d.appendChild(x);
  feed.insertBefore(d,feed.firstChild);
 }
 function listen(){
