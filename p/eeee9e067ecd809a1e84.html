@@ -1,0 +1,51 @@
+<!doctype html><html lang="en"><head><meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body style="margin:0"><title>Day Trade Plan</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap">
+<style>
+/* layout: one narrow column, phone first; a stock = heading, BUY ticket, SELL ticket, clock rules */
+:root{--bg:#f3f5f8;--card:#ffffff;--fg:#131a24;--muted:#5a6676;--line:#d9dfe7;
+--buy:#0b6b3f;--buy-bg:#e2f3ea;--sell:#1a4fc0;--sell-bg:#e3ebfb;--warn:#8a4b00;--warn-bg:#fdf0d8;
+--display:"Space Grotesk","Segoe UI",system-ui,sans-serif;--body:Inter,"Segoe UI",system-ui,-apple-system,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f141b;--card:#18202b;--fg:#eef2f7;--muted:#9aa7b8;--line:#2b3644;
+--buy:#62d39a;--buy-bg:#12301f;--sell:#8fb2ff;--sell-bg:#17274a;--warn:#f2bd6b;--warn-bg:#35270f;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f141b;--card:#18202b;--fg:#eef2f7;--muted:#9aa7b8;--line:#2b3644;
+--buy:#62d39a;--buy-bg:#12301f;--sell:#8fb2ff;--sell-bg:#17274a;--warn:#f2bd6b;--warn-bg:#35270f;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.45;
+padding-block:20px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.dt{max-width:460px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+.dt h1{font-family:var(--display);font-size:22px;margin:0;text-wrap:balance}
+.dt .when{color:var(--muted);font-size:14px;margin:2px 0 0}
+.dt .example{background:var(--warn-bg);color:var(--warn);font-weight:600;font-size:14px;padding:8px 12px;border-radius:8px}
+.stock{display:flex;flex-direction:column;gap:10px}
+.stock h2{font-family:var(--display);font-size:30px;line-height:1.1;margin:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:10px}
+.stock h2 small{font-family:var(--body);font-size:15px;font-weight:600;color:var(--muted)}
+.why{margin:0;color:var(--muted);font-size:15px}
+.rank{align-self:flex-start;font-weight:700;font-size:13px;letter-spacing:.03em;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--muted)}
+.rank.best{background:var(--fg);color:var(--bg);border-color:transparent}
+.ticket{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.ticket header{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;padding:10px 14px;font-weight:700;font-size:15px}
+.ticket.buy header{background:var(--buy-bg);color:var(--buy)}
+.ticket.sell header{background:var(--sell-bg);color:var(--sell)}
+.ticket header span{font-weight:600}
+.ticket dl{margin:0;padding:4px 14px}
+.ticket dl div{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:9px 0;border-bottom:1px solid var(--line)}
+.ticket dl div:last-child{border-bottom:0}
+.ticket dt{color:var(--muted);font-size:15px}
+.ticket dd{margin:0;font-weight:700;font-size:20px;font-variant-numeric:tabular-nums;text-align:right}
+.ticket dd.word{font-size:16px}
+.ticket dd small{display:block;font-size:13px;font-weight:500;color:var(--muted)}
+.ticket p{margin:0;padding:10px 14px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+.clock{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:15px}
+.clock b{font-variant-numeric:tabular-nums}
+.facts{display:flex;flex-wrap:wrap;gap:8px;font-size:14px}
+.facts span{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 12px}
+.facts .careful{background:var(--warn-bg);color:var(--warn);border-color:transparent;font-weight:600}
+details{font-size:14px;color:var(--muted)}
+details summary{cursor:pointer;padding:6px 0;color:var(--fg);font-weight:600}
+details ul{margin:6px 0 0;padding-left:18px}
+.none{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;font-size:17px}
+.foot{font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px;display:flex;flex-direction:column;gap:8px}
+.foot p{margin:0}
+hr{border:0;border-top:1px solid var(--line);margin:0}
+</style>
+<main class="dt"><div><h1>Day trade plan</h1><p class="when">BIG ($5 billion+) · Tuesday November 24, 9:00 AM ET</p></div><section class="stock"><span class="rank best">#1 · best chance today</span><h2>BBY <small>gap +3.1% · now $100.00</small></h2><p class="why">Earnings report: Why are Best Buy shares soaring today</p><p class="why">Why this place: earnings report, very busy before the open, gap in the middle of the range, road above clear, some short interest.</p><div class="ticket buy"><header>Step 1 · BUY order<span>Place it now, before 9:30</span></header><dl><div><dt>Action</dt><dd class="word">Buy</dd></div><div><dt>Shares</dt><dd>20</dd></div><div><dt>Order type</dt><dd class="word">Stop limit<small>also called buy on stop</small></dd></div><div><dt>Stop price</dt><dd>$104.02<small>it wakes up here</small></dd></div><div><dt>Limit price</dt><dd>$104.33<small>the most you pay</small></dd></div><div><dt>Good for</dt><dd class="word">Today only</dd></div></dl><p>Nothing is bought unless the price climbs to $104.02. Do not use a plain limit order here: a plain limit above the price buys right away.</p></div><div class="ticket sell"><header>Step 2 · SELL order<span>The moment step 1 buys</span></header><dl><div><dt>Action</dt><dd class="word">Sell</dd></div><div><dt>Shares</dt><dd>20</dd></div><div><dt>Order type</dt><dd class="word">Trailing stop</dd></div><div><dt>Trail amount</dt><dd>$1.24<small>or 1.2% if it asks for percent</small></dd></div><div><dt>Good for</dt><dd class="word">Today only</dd></div></dl><p>It starts about $102.78 and follows the price up. It never moves down.</p></div><ul class="clock"><li><b>11:00 AM</b> · Step 1 did not buy? Cancel it.</li><li><b>3:55 PM</b> · Still holding? Sell everything.</li></ul><div class="facts"><span>Risk $24.80</span><span>Cost about $2,086.60</span><span class="">Road above: CLEAR</span></div><details><summary>More numbers</summary><ul><li>Yesterday close: $97.00</li><li>Pre-market volume: 5.37% of a normal day</li><li>Stop price = pre-market high + 2 cents</li><li>Trail = a third of this stock&#x27;s normal day</li><li>For reference, 2x the risk would be $106.50. There is no fixed target.</li><li>Shorted: 8.2% of the shares (over 10% is left out)</li><li>Yesterday high: 100.45</li><li>Yesterday low: 96.05</li><li>Pre-market high: 104</li><li>Pre-market low: 96.74</li><li>Yesterday POC: 98.91</li><li>Yesterday VAH: 99.42</li><li>Yesterday VAL: 96.93</li><li>60-day POC: 88.41</li><li>60-day VAH: 99.18</li><li>60-day VAL: 85.97</li><li>Yesterday HVN: 97, 98.91</li><li>60-day HVN: 88.41, 93.97</li></ul></details></section><div class="foot"><p>Stops can slip: in a fast market the sale can be lower than the stop. A sell stop with a limit may not sell at all. If the price never reaches the buy stop price, nothing is bought: that is fine.</p><p>Suggestion only, not financial advice. You place every order yourself. Most day traders lose money.</p></div></main><button id="shareBtn" type="button" onclick="shareThisPage()" style="position:fixed;right:14px;bottom:14px;z-index:9999;padding:12px 18px;border:0;border-radius:24px;background:#1a5fd0;color:#fff;font:600 17px Segoe UI,Arial,sans-serif;box-shadow:0 3px 10px rgba(0,0,0,.3)">📤 Share</button><script>function shareThisPage(){var b=document.getElementById("shareBtn");b.style.display="none";var ds=[].slice.call(document.querySelectorAll("details:not([open])"));ds.forEach(function(d){d.open=true;});var t=(document.body.innerText||"").replace(/\n{3,}/g,"\n\n").trim();b.style.display="";ds.forEach(function(d){d.open=false;});if(t.length>60000){t=t.slice(0,60000)+"\n...(cut, page too long)";}var u=/^https?:/.test(location.href)?location.href:"";var full=document.title+"\n\n"+t+(u?"\n\nLink: "+u:"");function copied(){b.textContent="✓ Copied";setTimeout(function(){b.textContent="📤 Share";},2500);}function copy(){if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(full).then(copied,old);}else{old();}}function old(){var a=document.createElement("textarea");a.value=full;document.body.appendChild(a);a.select();try{document.execCommand("copy");copied();}catch(e){}a.remove();}if(navigator.share){navigator.share({title:document.title,text:full}).catch(function(e){if(e&&e.name!=="AbortError"){copy();}});}else{copy();}}</script></body></html>
