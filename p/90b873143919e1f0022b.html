@@ -1,0 +1,34 @@
+<!doctype html><html><head><meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>RESEARCH: crash check</title></head><body style="margin:0;padding:12px;background:#f4f6fa;color:#1d2330;font:16px/1.45 Segoe UI,Arial,sans-serif"><h2>RESEARCH: crash check</h2><pre style='white-space:pre-wrap;font-size:12px'>READ         curve_2y       lit=False  +0.28 (not below zero in the last 2 years)
+READ         curve_3m       lit=False  +0.55
+READ         credit         lit=True  junk bonds (HYG) vs Treasuries (IEF): -4.5% from their 3-month best (-3.5% = spread up about 1 point)
+READ         narrow         lit=False  S&amp;P 500 -7.7% vs average stock -3.0% over 3 months
+READ         death_cross    lit=False  50-day 758, 200-day 733
+READ         sahm           lit=False  0.00 (0.5 or more = unemployment rising fast)
+READ         factories      lit=False  +2.1% vs a year ago
+NOT CHECKED  estimates      lit=None  collecting (own history since 2026-11-25; needs 2 months)
+READ         banks          lit=False  BIG BANKS ON THE S&amp;P 500 (last 7 days): BULLISH - 4 of 8 bank(s) bullish, 3 bearish, 1 mixed/unclear (one vote per bank: Bank of America bearish, Citi bearish, Deutsche Bank bullish, Goldman Sachs bearish, JPMorgan bullish, Morgan Stanley bullish, UBS mixed, Wells Fargo bullish).
+READ         valuation      lit=False  P/E 21.4 (25+ = expensive)
+READ         distribution   lit=True  8 in the last 20 sessions (5+ = big money selling)
+READ         above_200      lit=False  54% (under 50% = most stocks broken)
+READ         new_lows       lit=True  668 new lows, 79 new highs
+READ         vix_curve      lit=True  VIX 30.3, VIX3M 27.6
+READ         hindenburg     lit=False  highs 79, lows 668 of 5422 stocks
+READ         dollar         lit=False  +2.1% in a month
+READ         copper_gold    lit=False  copper -19.6%, gold -23.7% over 3 months
+
+UP signs:
+NOT CHECKED  thrust         lit=None  not checked
+READ         above_200_up   lit=True  54%
+READ         golden_cross   lit=True  50-day 758, 200-day 733
+READ         fear_calm      lit=False  VIX 30.3, VIX3M 27.6
+READ         credit_up      lit=False  junk bonds (HYG) vs Treasuries (IEF): +0.0% above their 3-month worst
+READ         new_highs      lit=False  79 new highs, 668 new lows
+READ         fed_cut        lit=False  Fed rate 3.88% vs 3.63% about 3 months ago
+READ         banks_up       lit=True  BIG BANKS ON THE S&amp;P 500 (last 7 days): BULLISH - 4 of 8 bank(s) bullish, 3 bearish, 1 mixed/unclear (one vote per bank: Bank of America bearish, Citi bearish, Deutsche Bank bullish, Goldman Sachs bearish, JPMorgan bullish, Morgan Stanley bullish, UBS mixed, Wells Fargo bullish).
+
+second sources (rows, last):
+T10Y2Y: 724 rows, last (datetime.date(2026, 11, 24), 0.28)
+T10Y3M: 724 rows, last (datetime.date(2026, 11, 24), 0.55)
+SAHMREALTIME: 19 rows, last (datetime.date(2026, 10, 1), 0.0)
+DFF: 275 rows, last (datetime.date(2026, 11, 24), 3.88)
+INDPRO: 1294 rows, last (datetime.date(2026, 10, 1), 103.3954)</pre><button id="shareBtn" type="button" onclick="shareThisPage()" style="position:fixed;right:14px;bottom:14px;z-index:9999;padding:12px 18px;border:0;border-radius:24px;background:#1a5fd0;color:#fff;font:600 17px Segoe UI,Arial,sans-serif;box-shadow:0 3px 10px rgba(0,0,0,.3)">📤 Share</button><script>function shareThisPage(){var b=document.getElementById("shareBtn");b.style.display="none";var ds=[].slice.call(document.querySelectorAll("details:not([open])"));ds.forEach(function(d){d.open=true;});var t=(document.body.innerText||"").replace(/\n{3,}/g,"\n\n").trim();b.style.display="";ds.forEach(function(d){d.open=false;});if(t.length>60000){t=t.slice(0,60000)+"\n...(cut, page too long)";}var u=/^https?:/.test(location.href)?location.href:"";var full=document.title+"\n\n"+t+(u?"\n\nLink: "+u:"");function copied(){b.textContent="✓ Copied";setTimeout(function(){b.textContent="📤 Share";},2500);}function copy(){if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(full).then(copied,old);}else{old();}}function old(){var a=document.createElement("textarea");a.value=full;document.body.appendChild(a);a.select();try{document.execCommand("copy");copied();}catch(e){}a.remove();}if(navigator.share){navigator.share({title:document.title,text:full}).catch(function(e){if(e&&e.name!=="AbortError"){copy();}});}else{copy();}}</script></body></html>
