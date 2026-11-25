@@ -1,0 +1,51 @@
+<!doctype html><html><head><meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>RESEARCH: Pring + crash watch test</title></head><body style="margin:0;padding:12px;background:#f4f6fa;color:#1d2330;font:16px/1.45 Segoe UI,Arial,sans-serif"><h2>RESEARCH: Pring + crash watch test</h2><pre style='white-space:pre;overflow-x:auto;font-size:12px'>RESEARCH FAILED (nothing in the bot changed):
+Traceback (most recent call last):
+  File &quot;/home/SHAWN/stock-agent/research/pring_crash_test.py&quot;, line 277, in run
+    y, f = load()
+           ~~~~^^
+  File &quot;/home/SHAWN/stock-agent/research/pring_crash_test.py&quot;, line 61, in load
+    f = {k: fred(k, get) for k in (&quot;T10Y2Y&quot;, &quot;T10Y3M&quot;, &quot;BAMLH0A0HYM2&quot;, &quot;BAA10Y&quot;, &quot;SAHMREALTIME&quot;, &quot;INDPRO&quot;, &quot;DFF&quot;)}
+            ~~~~^^^^^^^^
+  File &quot;/home/SHAWN/stock-agent/research/pring_crash_test.py&quot;, line 39, in fred
+    for r in list(csv.reader(io.StringIO(get(f&quot;https://fred.stlouisfed.org/graph/fredgraph.csv?id={sid}&quot;))))[1:]:
+                                         ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/home/SHAWN/stock-agent/research/pring_crash_test.py&quot;, line 33, in _get
+    with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=60) as r:
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/home/SHAWN/.local/share/uv/python/cpython-3.13.16-linux-x86_64-gnu/lib/python3.13/urllib/request.py&quot;, line 189, in urlopen
+    return opener.open(url, data, timeout)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File &quot;/home/SHAWN/.local/share/uv/python/cpython-3.13.16-linux-x86_64-gnu/lib/python3.13/urllib/request.py&quot;, line 489, in open
+    response = self._open(req, data)
+  File &quot;/home/SHAWN/.local/share/uv/python/cpython-3.13.16-linux-x86_64-gnu/lib/python3.13/urllib/request.py&quot;, line 506, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+                              &#x27;_open&#x27;, req)
+  File &quot;/home/SHAWN/.local/share/uv/python/cpython-3.13.16-linux-x86_64-gnu/lib/python3.13/urllib/request.py&quot;, line 466, in _call_chain
+    result = func(*args)
+  File &quot;/home/SHAWN/.local/share/uv/python/cpython-3.13.16-linux-x86_64-gnu/lib/python3.13/urllib/request.py&quot;, line 1379, in https_open
+    return self.do_open(http.client.HTTPSConnection, req,
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                        context=self._context)
+                        ^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/home/SHAWN/.local/share/uv/python/cpython-3.13.16-linux-x86_64-gnu/lib/python3.13/urllib/request.py&quot;, line 1335, in do_open
+    r = h.getresponse()
+  File &quot;/home/SHAWN/.local/share/uv/python/cpython-3.13.16-linux-x86_64-gnu/lib/python3.13/http/client.py&quot;, line 1478, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File &quot;/home/SHAWN/.local/share/uv/python/cpython-3.13.16-linux-x86_64-gnu/lib/python3.13/http/client.py&quot;, line 343, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File &quot;/home/SHAWN/.local/share/uv/python/cpython-3.13.16-linux-x86_64-gnu/lib/python3.13/http/client.py&quot;, line 304, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), &quot;iso-8859-1&quot;)
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File &quot;/home/SHAWN/.local/share/uv/python/cpython-3.13.16-linux-x86_64-gnu/lib/python3.13/socket.py&quot;, line 723, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+  File &quot;/home/SHAWN/.local/share/uv/python/cpython-3.13.16-linux-x86_64-gnu/lib/python3.13/ssl.py&quot;, line 1327, in recv_into
+    return self.read(nbytes, buffer)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File &quot;/home/SHAWN/.local/share/uv/python/cpython-3.13.16-linux-x86_64-gnu/lib/python3.13/ssl.py&quot;, line 1161, in read
+    return self._sslobj.read(len, buffer)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
+</pre><button id="shareBtn" type="button" onclick="shareThisPage()" style="position:fixed;right:14px;bottom:14px;z-index:9999;padding:12px 18px;border:0;border-radius:24px;background:#1a5fd0;color:#fff;font:600 17px Segoe UI,Arial,sans-serif;box-shadow:0 3px 10px rgba(0,0,0,.3)">📤 Share</button><script>function shareThisPage(){var b=document.getElementById("shareBtn");b.style.display="none";var ds=[].slice.call(document.querySelectorAll("details:not([open])"));ds.forEach(function(d){d.open=true;});var t=(document.body.innerText||"").replace(/\n{3,}/g,"\n\n").trim();b.style.display="";ds.forEach(function(d){d.open=false;});if(t.length>60000){t=t.slice(0,60000)+"\n...(cut, page too long)";}var u=/^https?:/.test(location.href)?location.href:"";var full=document.title+"\n\n"+t+(u?"\n\nLink: "+u:"");function copied(){b.textContent="✓ Copied";setTimeout(function(){b.textContent="📤 Share";},2500);}function copy(){if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(full).then(copied,old);}else{old();}}function old(){var a=document.createElement("textarea");a.value=full;document.body.appendChild(a);a.select();try{document.execCommand("copy");copied();}catch(e){}a.remove();}if(navigator.share){navigator.share({title:document.title,text:full}).catch(function(e){if(e&&e.name!=="AbortError"){copy();}});}else{copy();}}</script></body></html>
