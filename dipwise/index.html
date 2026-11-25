@@ -1,5 +1,5 @@
 <!doctype html><html><head><meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>DipWise</title><style>
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#26215C"><link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="mobile-web-app-capable" content="yes"><title>DipWise</title><style>
 :root{--bg:#f4f5f7;--card:#fff;--tx:#1b1d21;--mu:#666;--bd:#dde0e5}
 @media(prefers-color-scheme:dark){:root{--bg:#16181c;--card:#202329;--tx:#eceef1;--mu:#9aa0a8;--bd:#3a3e46}}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px system-ui,Segoe UI,sans-serif}
@@ -127,4 +127,4 @@ document.querySelectorAll('.send').forEach(b=>b.onclick=()=>{
  go(b.dataset.w+' '+s.toLowerCase(),b.dataset.cost);
 });
 document.querySelectorAll('.row input').forEach(i=>i.onkeydown=e=>{if(e.key==='Enter')i.parentNode.querySelector('.send').click()});
-</script></body></html>
+</script><script>if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});</script></body></html>

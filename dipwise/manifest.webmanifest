@@ -1,0 +1,18 @@
+{
+  "id": "/stock-pages/dipwise/",
+  "name": "DipWise",
+  "short_name": "DipWise",
+  "description": "Your stock agent: press a button, your bot answers.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#16181c",
+  "theme_color": "#26215C",
+  "categories": ["finance", "productivity"],
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
