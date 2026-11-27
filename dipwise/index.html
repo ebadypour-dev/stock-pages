@@ -20,6 +20,7 @@ h3{font-size:14px;margin:16px 0 6px}
 .btn{position:relative;text-align:left;background:var(--card);color:var(--tx);border:1px solid var(--bd);border-left:5px solid var(--c);border-radius:10px;padding:10px 12px;cursor:pointer;font:inherit}
 .btn.wait,.send.wait{padding-right:38px}.btn.wait::after,.send.wait::after{content:"";position:absolute;right:10px;top:50%;width:18px;height:18px;margin-top:-9px;border:3px solid var(--bd);border-top-color:#1a73e8;border-radius:50%;animation:dwspin .8s linear infinite}
 .btn.done,.send.done{padding-right:38px}.btn.done::after,.send.done::after{content:"✓";position:absolute;right:12px;top:50%;margin-top:-12px;font:800 20px/24px Segoe UI,Arial;color:#1e8e3e}
+.btn.fail,.send.fail{padding-right:38px}.btn.fail::after,.send.fail::after{content:"✗";position:absolute;right:12px;top:50%;margin-top:-12px;font:800 20px/24px Segoe UI,Arial;color:#d93025}
 @keyframes dwspin{to{transform:rotate(360deg)}}
 .btn:hover{border-color:var(--c)}.btn b{display:block;font-size:15px}.btn small{color:var(--mu);font-size:12px}
 .btn i.free{background:#E1F5EE;color:#085041}.btn i{position:absolute;top:7px;right:8px;font-style:normal;font-size:10px;background:#FCEBEB;color:#791F1F;padding:1px 6px;border-radius:6px}
@@ -76,14 +77,17 @@ function say(word,err){
 }
 // his ask 2026-11-27: the pressed button shows a turning circle until the answer comes, then a green tick
 const pend=[];
-function mark(b,k){if(!b)return;b.classList.remove('wait','done');if(k)b.classList.add(k)}
-function finish(t){const i=pend.findIndex(p=>t>=p.t);if(i<0)return;const p=pend.splice(i,1)[0];clearTimeout(p.to);mark(p.b,'done')}
+function mark(b,k){if(!b)return;b.classList.remove('wait','done','fail');if(k)b.classList.add(k)}
+// 2026-11-27: the tick comes only when THIS button's own answer came (its words in the answer's title), never for another alert
+function fits(w,m){const t=String(m.title||'').toUpperCase();const ws=String(w||'').toUpperCase().split(/\s+/).filter(x=>x.length>=3);return ws.length>0&&ws.every(x=>t.includes(x))}
+function finish(m){const t=m.time*1000;const i=pend.findIndex(p=>t>=p.t&&fits(p.w,m));if(i<0)return;const p=pend.splice(i,1)[0];clearTimeout(p.to);
+ mark(p.b,String(m.title||'').toUpperCase().startsWith('COULD NOT DO')?'fail':'done')}
 function go(word,cost,btn){
  if(!TOPIC){say('','Locked: type your password first.');return}
  if(cost&&!confirm('"'+word+'" costs '+cost+' of API money. Send it?'))return;
  say(word);
  if(btn){const old=pend.findIndex(p=>p.b===btn);if(old>=0){clearTimeout(pend[old].to);pend.splice(old,1)}
-  mark(btn,'wait');const p={b:btn,t:Date.now()-5000};p.to=setTimeout(()=>{const i=pend.indexOf(p);if(i>=0)pend.splice(i,1);mark(btn,'')},10*60000);pend.push(p)}
+  mark(btn,'wait');const p={b:btn,w:word,t:Date.now()-5000};p.to=setTimeout(()=>{const i=pend.indexOf(p);if(i>=0)pend.splice(i,1);mark(btn,'')},10*60000);pend.push(p)}
  fetch('https://ntfy.sh/'+TOPIC+'-cmd',{method:'POST',body:word}).then(r=>{
   if(!r.ok)throw new Error('ntfy '+r.status);
   bar.className='';bar.innerHTML='<b>Sent: "'+esc(word)+'".</b> Your bot picks it up within 2 minutes.'+
@@ -126,7 +130,7 @@ function del(id,d){
 }
 function show(m){
  if(m.event!=='message'||seen.has(m.id)||gone.includes(m.id))return;seen.add(m.id);
- finish(m.time*1000);
+ finish(m);
  const e=document.getElementById('empty');if(e)e.remove();
  // his ask 2026-11-27: an answer disappears from DipWise 20 minutes after it came (it stays in Telegram and the ntfy app)
  const left=m.time*1000+KEEP-Date.now();if(left<=0)return;
