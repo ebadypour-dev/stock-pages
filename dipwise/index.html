@@ -91,17 +91,28 @@ function go(word,cost,btn){
  }).catch(e=>{say('','Not sent: no internet or ntfy did not answer. Try again, or write "'+word+'" in Telegram.');
   const i=pend.findIndex(p=>p.b===btn);if(i>=0){clearTimeout(pend[i].to);pend.splice(i,1)}mark(btn,'')});
 }
-const seen=new Set(),KEEP=20*60000;
+const seen=new Set(),KEEP=20*60000,PUSH_KEY="";
 // his ask 2026-11-27: while DipWise is open (even in the background) each NEW bot message plays a short chime and shows a small
 // Windows box on the side (title + first lines); a click on it opens that alert's page. Chrome asks once: Allow notifications.
 const T0=Date.now();let AC=null;
 function wake(){if(!AC){try{AC=new(window.AudioContext||window.webkitAudioContext)()}catch(x){}}if(AC&&AC.state==='suspended')AC.resume();
- if('Notification' in window&&Notification.permission==='default')Notification.requestPermission()}
+ if('Notification' in window&&Notification.permission==='default')Notification.requestPermission().then(p=>{if(p==='granted')pushOn()})}
 document.addEventListener('click',wake);document.addEventListener('keydown',wake);
 function chime(){if(!AC)return;const t=AC.currentTime;[[784,0],[1175,.15],[1568,.3]].forEach(([f,d])=>{const o=AC.createOscillator(),g=AC.createGain();
  o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(0,t+d);g.gain.linearRampToValueAtTime(.22,t+d+.02);g.gain.exponentialRampToValueAtTime(.001,t+d+.7);
  o.connect(g);g.connect(AC.destination);o.start(t+d);o.stop(t+d+.75)})}
-function popup(m){if(m.time*1000<T0-5000)return;chime();
+// his ask 2026-11-27 (15:36): DipWise's OWN notifications (Web Push) - they come even when DipWise is closed, phone and PC
+let PUSHED=false;
+function u8(b){const p='='.repeat((4-b.length%4)%4),r=atob((b+p).replace(/-/g,'+').replace(/_/g,'/'));return Uint8Array.from(r,c=>c.charCodeAt(0))}
+async function pushOn(){try{
+ if(!TOPIC||!PUSH_KEY||!('serviceWorker' in navigator)||!('PushManager' in window)||!('Notification' in window)||Notification.permission!=='granted')return;
+ const r=await navigator.serviceWorker.ready;let s=await r.pushManager.getSubscription();
+ if(!s)s=await r.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:u8(PUSH_KEY)});
+ PUSHED=true;const j=JSON.stringify(s.toJSON()),day=new Date().toDateString();
+ let last='';try{last=localStorage.getItem('dw-sub')||''}catch(x){}
+ if(last!==j+day){await fetch('https://ntfy.sh/'+TOPIC+'-cmd',{method:'POST',body:'webpush-sub '+j});try{localStorage.setItem('dw-sub',j+day)}catch(x){}}
+}catch(x){}}
+function popup(m){if(m.time*1000<T0-5000)return;if(PUSHED)return;chime();
  if(!('Notification' in window)||Notification.permission!=='granted')return;
  try{const n=new Notification(m.title||'DipWise',{body:String(m.message||'').split('\n').slice(0,3).join('\n'),icon:'icon-192.png',tag:m.id});
   n.onclick=()=>{window.focus();if(m.click)window.open(m.click,'_blank');n.close()}}catch(x){}}
@@ -130,6 +141,7 @@ function show(m){
  feed.insertBefore(d,feed.firstChild);
 }
 function listen(){
+ pushOn();
  const es=new EventSource('https://ntfy.sh/'+TOPIC+'/sse?since=20m');
  es.onopen=()=>{live.textContent='Connected';live.className='off ok'};
  es.onmessage=ev=>{try{show(JSON.parse(ev.data))}catch(x){}};
